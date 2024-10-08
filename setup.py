@@ -7,7 +7,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="wson",
-    version="0.1.2",
+    version="0.1.3",
     author="lunastev",
     author_email="your.email@example.com",
     description="A parser and serializer for WSON (Web Simple Object Notation)",
