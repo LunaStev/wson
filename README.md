@@ -15,7 +15,7 @@ WSON is a simple, readable data interchange format that combines the best featur
 
 You can install WSON using pip:
 
-```
+```bash
 pip install wson
 ```
 
