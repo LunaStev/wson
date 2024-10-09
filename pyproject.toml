@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wson"
-version = "0.1.4"
+version = "0.1.5"
 description = "WSON (Web Simple Object Notation)"
 authors = ["LunaStev <lunastev@gurmstudios.com>"]
 license = "MIT License"
@@ -9,7 +9,7 @@ packages = [{include = "wson", from = "src"}]
 repository = "https://github.com/lunastev/pipiy"
 
 [tool.poetry.dependencies]
-python = "*"
+python = ">=3.0,<4.0"
 
 [build-system]
 requires = ["poetry-core"]
