@@ -117,17 +117,14 @@ def convert_wson_to_dict(wson_str):
 
     return data
 
-def serialize_wson(data):
-    try:
-        return '{\n' + serialize_dict(data, '    ') + '\n}'
-    except Exception as e:
-        raise WSONSerializeError("Failed to serialize WSON") from e
+def serialize_wson(data, indent=''):
+    return '{\n' + serialize_dict(data, indent + '    ') + '\n' + indent + '}'
 
 def serialize_dict(data, indent=''):
     items = []
     for key, value in data.items():
         if isinstance(value, dict):
-            items.append(f'{indent}{key} = ' + serialize_wson(value))
+            items.append(f'{indent}{key} = ' + serialize_wson(value, indent + '    '))
         elif isinstance(value, list):
             items.append(f'{indent}{key} = [\n' + serialize_list(value, indent + '    ') + f'\n{indent}]')
         elif isinstance(value, str):
@@ -136,13 +133,15 @@ def serialize_dict(data, indent=''):
             items.append(f'{indent}{key} = null')
         else:
             items.append(f'{indent}{key} = {value}')
+
+    # Join items with a comma and newline
     return ',\n\n'.join(items)
 
 def serialize_list(data, indent=''):
     items = []
     for item in data:
         if isinstance(item, dict):
-            items.append(indent + serialize_wson(item))
+            items.append(indent + serialize_wson(item, indent + '    '))
         elif isinstance(item, list):
             items.append(indent + '[\n' + serialize_list(item, indent + '    ') + f'\n{indent}]')
         elif isinstance(item, str):
@@ -151,7 +150,9 @@ def serialize_list(data, indent=''):
             items.append(f'{indent}null')
         else:
             items.append(f'{indent}{item}')
-    return ',\n'.join(items)
+
+    # Join list items with a comma and newline
+    return ',\n\n'.join(items)
 
 def dumps(data):
     """
