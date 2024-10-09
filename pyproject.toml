@@ -5,6 +5,8 @@ description = "WSON (Web Simple Object Notation)"
 authors = ["LunaStev <lunastev@gurmstudios.com>"]
 license = "MIT License"
 readme = "README.md"
+packages = [{include = "wson", from = "src"}]
+repository = "https://github.com/lunastev/pipiy"
 
 [tool.poetry.dependencies]
 python = "*"
