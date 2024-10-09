@@ -1,1 +1,1 @@
-from .wson import parse_wson, serialize_wson, WSONParseError
+from .wson import WSONParseError, loads, dumps
