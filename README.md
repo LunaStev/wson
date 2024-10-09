@@ -1,8 +1,6 @@
 # WSON (Web Simple Object Notation)
 
 [![GitHub](https://img.shields.io/github/license/LunaStev/wson)](https://mit-license.org/)
-[![PyPI](https://img.shields.io/pypi/v/wson.svg)](https://mit-license.org/)
-[![PyPI](https://img.shields.io/pypi/pyversions/wson.svg)](https://mit-license.org/)
 [![YouTube](https://img.shields.io/badge/YouTube-LunaStev-red.svg?logo=youtube)](https://www.youtube.com/@luna-bee)
 
 WSON is a simple, readable data interchange format that combines the best features of JSON and YAML while addressing some of their limitations.
@@ -19,16 +17,18 @@ WSON is a simple, readable data interchange format that combines the best featur
 
 ## Language Support
 
-| Language                       | Status      | Description                                |
-|-------------------------------|-------------|--------------------------------------------|
-| Python                        | Implemented | The WSON parser is implemented in Python only. |
-| JavaScript                    | Not Implemented | The WSON parser for JavaScript is not implemented. |
-| Java                          | Not Implemented | The WSON parser for Java is not implemented. |
-| C#                            | Not Implemented | The WSON parser for C# is not implemented. |
-| Ruby                          | Not Implemented | The WSON parser for Ruby is not implemented. |
-| Go                            | Not Implemented | The WSON parser for Go is not implemented. |
-| C++                           | Not Implemented | The WSON parser for C++ is not implemented. |
-| PHP                           | Not Implemented | The WSON parser for PHP is not implemented. |
+## Language Support
+
+| Language                       | Status         | Badges                      |
+|-------------------------------|----------------|-----------------------------|
+| Python                        | Implemented     | ![PyPI](https://img.shields.io/pypi/v/wson.svg) ![PyPI](https://img.shields.io/pypi/pyversions/wson.svg) |
+| JavaScript                    | Not Implemented  |                             |
+| Java                          | Not Implemented  |                             |
+| C#                            | Not Implemented  |                             |
+| Ruby                          | Not Implemented  |                             |
+| Go                            | Not Implemented  |                             |
+| C++                           | Not Implemented  |                             |
+| PHP                           | Not Implemented  |                             |
 
 ## Installation
 
