@@ -42,7 +42,6 @@ pip install wson
 Here's a quick example of how to use WSON in your Python projects:
 
 ```python
-
 import wson
 
 # Parse WSON string

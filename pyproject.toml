@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "wson"
-version = "0.1.5"
+version = "0.1.6"
 description = "WSON (Web Simple Object Notation)"
 authors = ["LunaStev <lunastev@gurmstudios.com>"]
-license = "MIT License"
+license = "MIT"
 readme = "README.md"
 packages = [{include = "wson", from = "src"}]
-repository = "https://github.com/lunastev/pipiy"
+repository = "https://github.com/lunastev/wson"
 
 [tool.poetry.dependencies]
 python = ">=3.0,<4.0"
