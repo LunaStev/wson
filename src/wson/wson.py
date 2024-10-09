@@ -1,3 +1,4 @@
+from datetime import datetime
 import re
 
 class WSONParseError(Exception):
@@ -30,6 +31,12 @@ def parse_value(value):
         return value.lower() == 'true'  # 불리언
     elif re.match(r'^-?\d+(\.\d+)?$', value):
         return float(value) if '.' in value else int(value)
+    elif re.match(r'^\d{4}-\d{2}-\d{2}$', value):  # 날짜 (YYYY-MM-DD)
+        return datetime.strptime(value, '%Y-%m-%d').date()
+    elif re.match(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$', value):  # 날짜+시간 (YYYY-MM-DD HH:MM:SS)
+        return datetime.strptime(value, '%Y-%m-%d %H:%M:%S')
+    elif re.match(r'^\d+(\.\d+)+$', value):  # 버전 (예: 1.0.0)
+        return tuple(map(int, value.split('.')))
     elif value.startswith('{') and value.endswith('}'):
         return convert_wson_to_dict(value)  # 중첩 WSON 호출
     elif value.startswith('[') and value.endswith(']'):
@@ -146,14 +153,15 @@ def tests():
         status = "success",
         code = 200,
         message = "Data retrieved successfully",
-
+        version = 1.0.0,
+        release_date = 2024-10-09,
         user = {
             id = 123,
             name = "John Doe",
             email = "john@example.com",
-            age = 25
+            age = 25,
+            joined = 2023-01-15 09:00:00
         },
-
         tasks = [
             {
                 task_id = 1,

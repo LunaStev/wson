@@ -7,14 +7,15 @@ WSON is a simple, readable data interchange format that combines the best featur
 
 ## Features
 
-| Feature                        | Status      | Description                                |
-|-------------------------------|-------------|--------------------------------------------|
-| Syntax                        | Implemented | The basic syntax of WSON is implemented.  |
-| Comment Support (// and # styles) | Implemented | The ability to remove comments is implemented. |
-| Original Formatting Preservation | Not Implemented | The functionality to preserve original formatting is not explicitly implemented. |
-| Nested Objects and Arrays Support | Implemented | Capable of parsing and serializing nested objects and arrays. |
+| Feature                                    | Status      | Description                                |
+|--------------------------------------------|-------------|--------------------------------------------|
+| Syntax                                     | Implemented | The basic syntax of WSON is implemented.  |
+| Comment Support (// and # styles)          | Implemented | The ability to remove comments is implemented. |
+| Original Formatting Preservation           | Not Implemented | The functionality to preserve original formatting is not explicitly implemented. |
+| Nested Objects and Arrays Support          | Implemented | Capable of parsing and serializing nested objects and arrays. |
 | String, Number, Boolean, and Null Handling | Implemented | Can handle various data types.             |
-
+| Date and Time Handling                     | Implemented | Supports parsing and serializing date and time values. |
+| Version Handling	                          | Implemented | Supports parsing and serializing version numbers as tuples. |
 ## Language Support
 
 | Language                       | Status         | Badges                      |
