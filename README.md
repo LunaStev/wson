@@ -1,5 +1,10 @@
 # WSON (Web Simple Object Notation)
 
+[![GitHub](https://img.shields.io/github/license/LunaStev/wson)](https://mit-license.org/)
+[![PyPI](https://img.shields.io/pypi/v/wson.svg)](https://mit-license.org/)
+[![PyPI](https://img.shields.io/pypi/pyversions/wson.svg)](https://mit-license.org/)
+[![YouTube](https://img.shields.io/badge/YouTube-LunaStev-red.svg?logo=youtube)](https://www.youtube.com/@luna-bee)
+
 WSON is a simple, readable data interchange format that combines the best features of JSON and YAML while addressing some of their limitations.
 
 ## Features
