@@ -43,7 +43,7 @@ Here's a quick example of how to use WSON in your Python projects:
 
 ```python
 
-from src import wson
+import wson
 
 # Parse WSON string
 wson_data = """
