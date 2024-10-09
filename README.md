@@ -1,5 +1,6 @@
 # WSON (Web Simple Object Notation)
 
+[![Discord](https://discord.com/api/guilds/1268404228683202570/embed.png)](https://discord.gg/Kuk2qXFjc5)
 [![GitHub](https://img.shields.io/github/license/LunaStev/wson)](https://mit-license.org/)
 [![YouTube](https://img.shields.io/badge/YouTube-LunaStev-red.svg?logo=youtube)](https://www.youtube.com/@luna-bee)
 
@@ -103,3 +104,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License.
+
+## Links
+
+- [Official Discord Server](https://discord.gg/Kuk2qXFjc5)
