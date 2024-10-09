@@ -21,12 +21,13 @@ WSON is a simple, readable data interchange format that combines the best featur
 
 | Language                       | Status         | Badges                      |
 |-------------------------------|----------------|-----------------------------|
-| Python                        | Implemented     | ![PyPI](https://img.shields.io/pypi/v/wson.svg) ![PyPI](https://img.shields.io/pypi/pyversions/wson.svg) |
+| Python                        | **Implemented**     | ![PyPI](https://img.shields.io/pypi/v/wson.svg) ![PyPI](https://img.shields.io/pypi/pyversions/wson.svg) |
 | JavaScript                    | Not Implemented  |                             |
 | Java                          | Not Implemented  |                             |
 | C#                            | Not Implemented  |                             |
 | Ruby                          | Not Implemented  |                             |
 | Go                            | Not Implemented  |                             |
+| C                             | Not Implemented  |                             |
 | C++                           | Not Implemented  |                             |
 | PHP                           | Not Implemented  |                             |
 
