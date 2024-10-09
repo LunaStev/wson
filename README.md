@@ -9,12 +9,26 @@ WSON is a simple, readable data interchange format that combines the best featur
 
 ## Features
 
-- Simple and intuitive syntax
-- Supports comments (both // and # styles)
-- Preserves the original formatting when possible
-- Easy to read and write for humans
-- Supports nested objects and arrays
-- Handles strings, numbers, booleans, and null values
+| Feature                        | Status      | Description                                |
+|-------------------------------|-------------|--------------------------------------------|
+| Syntax                        | Implemented | The basic syntax of WSON is implemented.  |
+| Comment Support (// and # styles) | Implemented | The ability to remove comments is implemented. |
+| Original Formatting Preservation | Not Implemented | The functionality to preserve original formatting is not explicitly implemented. |
+| Nested Objects and Arrays Support | Implemented | Capable of parsing and serializing nested objects and arrays. |
+| String, Number, Boolean, and Null Handling | Implemented | Can handle various data types.             |
+
+## Language Support
+
+| Language                       | Status      | Description                                |
+|-------------------------------|-------------|--------------------------------------------|
+| Python                        | Implemented | The WSON parser is implemented in Python only. |
+| JavaScript                    | Not Implemented | The WSON parser for JavaScript is not implemented. |
+| Java                          | Not Implemented | The WSON parser for Java is not implemented. |
+| C#                            | Not Implemented | The WSON parser for C# is not implemented. |
+| Ruby                          | Not Implemented | The WSON parser for Ruby is not implemented. |
+| Go                            | Not Implemented | The WSON parser for Go is not implemented. |
+| C++                           | Not Implemented | The WSON parser for C++ is not implemented. |
+| PHP                           | Not Implemented | The WSON parser for PHP is not implemented. |
 
 ## Installation
 
