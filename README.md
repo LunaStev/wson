@@ -45,7 +45,7 @@ Here's a quick example of how to use WSON in your Python projects:
 ```python
 import wson
 
-# Parse WSON string
+# WSON 문자열
 wson_data = """
 {
     status = "success",
@@ -76,12 +76,14 @@ wson_data = """
 }
 """
 
-# Parse WSON to Python dictionary
-parsed_data = wson.parse_wson(wson_data)
+# WSON 문자열을 Python 딕셔너리로 파싱
+parsed_data = wson.loads(wson_data)
+print("Parsed Data:")
 print(parsed_data)
 
-# Serialize Python dictionary to WSON
-wson_output = wson.serialize_wson(parsed_data)
+# Python 딕셔너리를 WSON 문자열로 직렬화
+wson_output = wson.dumps(parsed_data)
+print("\nSerialized WSON:")
 print(wson_output)
 ```
 

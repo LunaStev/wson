@@ -4,9 +4,12 @@ import re
 class WSONParseError(Exception):
     pass
 
+class WSONSerializeError(Exception):
+    pass
+
 def parse_wson(wson_str):
-    wson_str = remove_comments(wson_str)
-    return convert_wson_to_dict(wson_str)
+    cleaned_wson = remove_comments(wson_str)
+    return convert_wson_to_dict(cleaned_wson)
 
 def remove_comments(wson_str):
     lines = wson_str.splitlines()
@@ -49,7 +52,7 @@ def parse_array(array_str):
     current_item = ''
     brace_count = 0
     bracket_count = 0
-    
+
     for char in array_str:
         if char == '{':
             brace_count += 1
@@ -59,23 +62,23 @@ def parse_array(array_str):
             bracket_count += 1
         elif char == ']':
             bracket_count -= 1
-        
+
         if char == ',' and brace_count == 0 and bracket_count == 0:
             items.append(parse_value(current_item.strip()))
             current_item = ''
         else:
             current_item += char
-    
+
     if current_item.strip():
         items.append(parse_value(current_item.strip()))
-    
+
     return items
 
 def convert_wson_to_dict(wson_str):
     wson_str = wson_str.strip()
     if not (wson_str.startswith('{') and wson_str.endswith('}')):
         raise WSONParseError("WSON format must start and end with curly braces.")
-    
+
     wson_str = wson_str[1:-1]  # {} 제거
     data = {}
     key = ''
@@ -83,12 +86,12 @@ def convert_wson_to_dict(wson_str):
     in_key = True
     brace_count = 0
     bracket_count = 0
-    
+
     for char in wson_str:
         if char in ['=', ':'] and in_key and brace_count == 0 and bracket_count == 0:
             in_key = False
             continue
-        
+
         if char == '{':
             brace_count += 1
         elif char == '}':
@@ -97,7 +100,7 @@ def convert_wson_to_dict(wson_str):
             bracket_count += 1
         elif char == ']':
             bracket_count -= 1
-        
+
         if char == ',' and brace_count == 0 and bracket_count == 0:
             if key:
                 data[key.strip()] = parse_value(value.strip())
@@ -108,20 +111,23 @@ def convert_wson_to_dict(wson_str):
             key += char
         else:
             value += char
-    
+
     if key:
         data[key.strip()] = parse_value(value.strip())
-    
+
     return data
 
-def serialize_wson(data, indent=''):
-    return '{\n' + serialize_dict(data, indent + '    ') + '\n' + indent + '}'
+def serialize_wson(data):
+    try:
+        return '{\n' + serialize_dict(data, '    ') + '\n}'
+    except Exception as e:
+        raise WSONSerializeError("Failed to serialize WSON") from e
 
 def serialize_dict(data, indent=''):
     items = []
     for key, value in data.items():
         if isinstance(value, dict):
-            items.append(f'{indent}{key} = ' + serialize_wson(value, indent))
+            items.append(f'{indent}{key} = ' + serialize_wson(value))
         elif isinstance(value, list):
             items.append(f'{indent}{key} = [\n' + serialize_list(value, indent + '    ') + f'\n{indent}]')
         elif isinstance(value, str):
@@ -136,7 +142,7 @@ def serialize_list(data, indent=''):
     items = []
     for item in data:
         if isinstance(item, dict):
-            items.append(indent + serialize_wson(item, indent))
+            items.append(indent + serialize_wson(item))
         elif isinstance(item, list):
             items.append(indent + '[\n' + serialize_list(item, indent + '    ') + f'\n{indent}]')
         elif isinstance(item, str):
@@ -146,6 +152,38 @@ def serialize_list(data, indent=''):
         else:
             items.append(f'{indent}{item}')
     return ',\n'.join(items)
+
+def dumps(data):
+    """
+    Serialize Python object to WSON string.
+
+    :param data: Python object (dict or list) to serialize.
+    :return: WSON formatted string.
+    """
+    return serialize_wson(data)
+
+def loads(wson_str):
+    """
+    Parse WSON string to Python object.
+
+    :param wson_str: WSON formatted string.
+    :return: Python object (dict or list).
+    :raises WSONParseError: If the WSON format is invalid.
+    """
+    return parse_wson(wson_str)
+
+def validate_wson(wson_str):
+    """
+    Validate a WSON string for correctness.
+
+    :param wson_str: WSON formatted string.
+    :return: True if valid, raises WSONParseError if invalid.
+    """
+    try:
+        parse_wson(wson_str)
+        return True
+    except WSONParseError:
+        return False
 
 def tests():
     wson_data = """
@@ -179,11 +217,23 @@ def tests():
     }
     """
 
-    parsed_data = parse_wson(wson_data)
-    print("Parsed Data:", parsed_data)
+    print("Testing `loads` function...")
+    try:
+        parsed_data = loads(wson_data)
+        print("Parsed Data:", parsed_data)
+    except WSONParseError as e:
+        print("Parsing Error:", e)
 
-    wson_output = serialize_wson(parsed_data)
-    print("\nSerialized WSON:\n", wson_output)
+    print("\nTesting `dumps` function...")
+    try:
+        wson_output = dumps(parsed_data)
+        print("\nSerialized WSON:\n", wson_output)
+    except WSONSerializeError as e:
+        print("Serialization Error:", e)
+
+    print("\nTesting `validate_wson` function...")
+    valid = validate_wson(wson_data)
+    print("Is valid WSON:", valid)
 
 if __name__ == "__main__":
     tests()
