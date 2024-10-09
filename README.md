@@ -17,8 +17,6 @@ WSON is a simple, readable data interchange format that combines the best featur
 
 ## Language Support
 
-## Language Support
-
 | Language                       | Status         | Badges                      |
 |-------------------------------|----------------|-----------------------------|
 | Python                        | **Implemented**     | ![PyPI](https://img.shields.io/pypi/v/wson.svg) ![PyPI](https://img.shields.io/pypi/pyversions/wson.svg) |
