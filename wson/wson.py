@@ -140,7 +140,7 @@ def serialize_list(data, indent=''):
             items.append(f'{indent}{item}')
     return ',\n'.join(items)
 
-if __name__ == "__main__":
+def tests():
     wson_data = """
     {
         status = "success",
@@ -170,9 +170,12 @@ if __name__ == "__main__":
         ]
     }
     """
-    
+
     parsed_data = parse_wson(wson_data)
     print("Parsed Data:", parsed_data)
 
     wson_output = serialize_wson(parsed_data)
     print("\nSerialized WSON:\n", wson_output)
+
+if __name__ == "__main__":
+    tests()

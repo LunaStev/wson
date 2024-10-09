@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "wson"
+version = "0.1.4"
+description = "WSON (Web Simple Object Notation)"
+authors = ["LunaStev <lunastev@gurmstudios.com>"]
+license = "MIT License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
