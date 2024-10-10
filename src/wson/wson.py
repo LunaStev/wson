@@ -2,7 +2,10 @@ from datetime import datetime
 import re
 
 class WSONParseError(Exception):
-    pass
+    def __init__(self, message, line=None, column=None):
+        self.line = line
+        self.column = column
+        super().__init__(f"{message} (line {line}, column {column})" if line and column else message)
 
 class WSONSerializeError(Exception):
     pass
@@ -24,7 +27,7 @@ def remove_comments(wson_str):
         cleaned_lines.append(line.rstrip())
     return '\n'.join(cleaned_lines)
 
-def parse_value(value):
+def parse_value(value, line, column):
     value = value.strip()
     if not value:
         return None
@@ -41,19 +44,19 @@ def parse_value(value):
     elif re.match(r'^\d+(\.\d+)+$', value):  # 버전 (예: 1.0.0)
         return tuple(map(int, value.split('.')))
     elif value.startswith('{') and value.endswith('}'):
-        return convert_wson_to_dict(value)  # 중첩 WSON 호출
+        return convert_wson_to_dict(value, line, column)  # 중첩 WSON 호출
     elif value.startswith('[') and value.endswith(']'):
-        return parse_array(value)  # 배열 파싱 함수 호출
-    raise WSONParseError(f"Invalid value: {value}")
+        return parse_array(value, line, column)  # 배열 파싱 함수 호출
+    raise WSONParseError(f"Invalid value: {value}", line, column)
 
-def parse_array(array_str):
+def parse_array(array_str, line, column):
     array_str = array_str[1:-1].strip()  # [] 제거
     items = []
     current_item = ''
     brace_count = 0
     bracket_count = 0
 
-    for char in array_str:
+    for i, char in enumerate(array_str):
         if char == '{':
             brace_count += 1
         elif char == '}':
@@ -64,20 +67,20 @@ def parse_array(array_str):
             bracket_count -= 1
 
         if char == ',' and brace_count == 0 and bracket_count == 0:
-            items.append(parse_value(current_item.strip()))
+            items.append(parse_value(current_item.strip(), line, column + i))
             current_item = ''
         else:
             current_item += char
 
     if current_item.strip():
-        items.append(parse_value(current_item.strip()))
+        items.append(parse_value(current_item.strip(), line, column + len(array_str)))
 
     return items
 
-def convert_wson_to_dict(wson_str):
+def convert_wson_to_dict(wson_str, start_line=1, start_column=1):
     wson_str = wson_str.strip()
     if not (wson_str.startswith('{') and wson_str.endswith('}')):
-        raise WSONParseError("WSON format must start and end with curly braces.")
+        raise WSONParseError("WSON format must start and end with curly braces.", start_line, start_column)
 
     wson_str = wson_str[1:-1]  # {} 제거
     data = {}
@@ -86,8 +89,15 @@ def convert_wson_to_dict(wson_str):
     in_key = True
     brace_count = 0
     bracket_count = 0
+    line = start_line
+    column = start_column
 
-    for char in wson_str:
+    for i, char in enumerate(wson_str):
+        if char == '\n':
+            line += 1
+            column = start_column
+            continue
+
         if char in ['=', ':'] and in_key and brace_count == 0 and bracket_count == 0:
             in_key = False
             continue
@@ -103,7 +113,7 @@ def convert_wson_to_dict(wson_str):
 
         if char == ',' and brace_count == 0 and bracket_count == 0:
             if key:
-                data[key.strip()] = parse_value(value.strip())
+                data[key.strip()] = parse_value(value.strip(), line, column + i)
                 key = ''
                 value = ''
                 in_key = True
@@ -113,7 +123,7 @@ def convert_wson_to_dict(wson_str):
             value += char
 
     if key:
-        data[key.strip()] = parse_value(value.strip())
+        data[key.strip()] = parse_value(value.strip(), line, column + len(wson_str))
 
     return data
 
