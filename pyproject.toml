@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wson"
-version = "0.2.2"
+version = "0.2.3"
 description = "WSON (Web Simple Object Notation)"
 authors = ["LunaStev <lunastev@gurmstudios.com>"]
 license = "MIT"
