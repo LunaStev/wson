@@ -17,14 +17,33 @@ def parse_wson(wson_str):
 def remove_comments(wson_str):
     lines = wson_str.splitlines()
     cleaned_lines = []
+    in_block_comment = False
+
     for line in lines:
+        if in_block_comment:
+            end_index = line.find('*/')
+            if end_index != -1:
+                line = line[end_index + 2:]
+                in_block_comment = False
+            else:
+                continue
+        while '/*' in line:
+            start_index = line.find('/*')
+            end_index = line.find('*/', start_index + 2)
+            if end_index != -1:
+                line = line[:start_index]
+            else:
+                line = line[:start_index]
+                in_block_comment = True
+                break
         comment_index = line.find('//')
         hash_index = line.find('#')
         if comment_index != -1:
             line = line[:comment_index]
         elif hash_index != -1:
             line = line[:hash_index]
-        cleaned_lines.append(line.rstrip())
+        if line.strip():
+            cleaned_lines.append(line.rstrip())
     return '\n'.join(cleaned_lines)
 
 def parse_value(value, line, column):
@@ -195,6 +214,9 @@ def validate_wson(wson_str):
 def tests():
     wson_data = """
     {
+        /*
+            Hello Block Comment
+        */
         status = "success",
         code = 200,
         message = "Data retrieved successfully",
