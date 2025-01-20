@@ -1,4 +1,4 @@
-# WSON (Web Simple Object Notation)
+# WSON (Wave Simple Object Notation)
 
 [![Discord](https://discord.com/api/guilds/1268404228683202570/embed.png)](https://discord.gg/Kuk2qXFjc5)
 [![GitHub](https://img.shields.io/github/license/LunaStev/wson)](https://mit-license.org/)
